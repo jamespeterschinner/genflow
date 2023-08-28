@@ -255,7 +255,7 @@ function* _takeWhile<T>(
   }
 }
 
-class Wrapper<T> implements IterableIterator<T> {
+class Genflow<T> implements IterableIterator<T> {
   constructor(private generator: IterableIterator<T>) {}
 
   [Symbol.iterator]() {
@@ -271,147 +271,147 @@ class Wrapper<T> implements IterableIterator<T> {
   }
 
   takeWhile(predicate: (item: T) => boolean) {
-    return new Wrapper(_takeWhile(predicate, this));
+    return new Genflow(_takeWhile(predicate, this));
   }
 
   enumerate() {
-    return new Wrapper(_enumerate(this));
+    return new Genflow(_enumerate(this));
   }
 
   take(number: number) {
-    return new Wrapper(_take(this, number));
+    return new Genflow(_take(this, number));
   }
 
   cycle(times: number = -1) {
-    return new Wrapper(_cycle(this, times));
+    return new Genflow(_cycle(this, times));
   }
 
   accumulate(operator: Operator<T>, initial: T | undefined = undefined) {
-    return new Wrapper(_accumulate(this, operator, initial));
+    return new Genflow(_accumulate(this, operator, initial));
   }
 
   tee(splits: number = 2) {
-    return new Wrapper(_map(_tee(this, splits), (gen) => new Wrapper(gen)));
+    return new Genflow(_map(_tee(this, splits), (gen) => new Genflow(gen)));
   }
 
   drop(items: number = 1) {
-    return new Wrapper(_drop(this, items));
+    return new Genflow(_drop(this, items));
   }
 
   step(step: number = 1) {
-    return new Wrapper(_step(this, step));
+    return new Genflow(_step(this, step));
   }
 
   slice(start: number = 0, stop: number | null = null, step: number = 1) {
-    return new Wrapper(_slice(this, start, stop, step));
+    return new Genflow(_slice(this, start, stop, step));
   }
 
   map<R>(func: (item: T) => R) {
-    return new Wrapper(_map(this, func));
+    return new Genflow(_map(this, func));
   }
 
   window(n: number = 2) {
-    return new Wrapper(_window(this, n));
+    return new Genflow(_window(this, n));
   }
 
   flatten() {
-    return new Wrapper(_flatten(this));
+    return new Genflow(_flatten(this));
   }
 
   filter(predicate: (item: T) => boolean = (item) => Boolean(item)) {
-    return new Wrapper(_filter(this, predicate));
+    return new Genflow(_filter(this, predicate));
   }
 
   filterMap<R>(predicate: (item: T) => R | null | undefined) {
-    return new Wrapper(_filterMap(this, predicate));
+    return new Genflow(_filterMap(this, predicate));
   }
 }
 
-export interface Genflow {
-  count(start?: number, step?: number): Wrapper<number>;
-  range(start?: number, stop?: number, step?: number): Wrapper<number>;
+export interface GenflowFunctions {
+  count(start?: number, step?: number): Genflow<number>;
+  range(start?: number, stop?: number, step?: number): Genflow<number>;
   accumulate<T>(
     iterable: Iterable<T>,
     operator: Operator<T>,
     initial?: T | undefined
-  ): Wrapper<T>;
-  enumerate<T>(iterable: Iterable<T>): Wrapper<[number, T]>;
-  take<T>(iterable: Iterable<T>, number: number): Wrapper<T>;
-  cycle<T>(iterable: Iterable<T>, times?: number): Wrapper<T | undefined>;
-  tee<T>(iterable: Iterable<T>, splits?: number): Wrapper<Wrapper<T>>;
-  drop<T>(iterable: Iterable<T>, items?: number): Wrapper<T>;
-  step<T>(iterable: Iterable<T>, step?: number): Wrapper<T>;
+  ): Genflow<T>;
+  enumerate<T>(iterable: Iterable<T>): Genflow<[number, T]>;
+  take<T>(iterable: Iterable<T>, number: number): Genflow<T>;
+  cycle<T>(iterable: Iterable<T>, times?: number): Genflow<T | undefined>;
+  tee<T>(iterable: Iterable<T>, splits?: number): Genflow<Genflow<T>>;
+  drop<T>(iterable: Iterable<T>, items?: number): Genflow<T>;
+  step<T>(iterable: Iterable<T>, step?: number): Genflow<T>;
   slice<T>(
     iterable: Iterable<T>,
     start?: number,
     stop?: number | null,
     step?: number
-  ): Wrapper<T>;
-  zip<T>(...iterables: Iterable<T>[]): Wrapper<(void | T)[]>;
-  map<T, R>(iterable: Iterable<T>, func: (item: T) => R): Wrapper<R>;
+  ): Genflow<T>;
+  zip<T>(...iterables: Iterable<T>[]): Genflow<(void | T)[]>;
+  map<T, R>(iterable: Iterable<T>, func: (item: T) => R): Genflow<R>;
   window<T>(
     iterable: Iterable<T>,
     n?: number
-  ): Wrapper<(void | Generator<never, Iterable<T>, unknown>)[]>;
-  flatten<T>(iterable: Iterable<T>): Wrapper<T>;
+  ): Genflow<(void | Generator<never, Iterable<T>, unknown>)[]>;
+  flatten<T>(iterable: Iterable<T>): Genflow<T>;
   filter<T>(
     iterable: Iterable<T>,
     predicate?: (item: T) => boolean
-  ): Wrapper<T>;
+  ): Genflow<T>;
   filterMap<T, R>(
     iterable: Iterable<T>,
     predicate: (item: T) => R | null | undefined
-  ): Wrapper<R>;
+  ): Genflow<R>;
 }
 
-const genflow: Genflow = {
+const genflow: GenflowFunctions = {
   count(start = 0, step = 1) {
-    return new Wrapper(_count(start, step));
+    return new Genflow(_count(start, step));
   },
   range(start = 0, stop, step = 1) {
-    return new Wrapper(_range(start, stop, step));
+    return new Genflow(_range(start, stop, step));
   },
   accumulate(iterable, operator, initial = undefined) {
-    return new Wrapper(_accumulate(iterable, operator, initial));
+    return new Genflow(_accumulate(iterable, operator, initial));
   },
   enumerate(iterable) {
-    return new Wrapper(_enumerate(iterable));
+    return new Genflow(_enumerate(iterable));
   },
   take(iterable, number) {
-    return new Wrapper(_take(iterable, number));
+    return new Genflow(_take(iterable, number));
   },
   cycle(iterable, times = -1) {
-    return new Wrapper(_cycle(iterable, times));
+    return new Genflow(_cycle(iterable, times));
   },
   tee(iterable, splits = 2) {
-    return new Wrapper(_map(_tee(iterable, splits), (gen) => new Wrapper(gen)));
+    return new Genflow(_map(_tee(iterable, splits), (gen) => new Genflow(gen)));
   },
   drop(iterable, items = 1) {
-    return new Wrapper(_drop(iterable, items));
+    return new Genflow(_drop(iterable, items));
   },
   step(iterable, step = 1) {
-    return new Wrapper(_step(iterable, step));
+    return new Genflow(_step(iterable, step));
   },
   slice(iterable, start = 0, stop = undefined, step = 1) {
-    return new Wrapper(_slice(iterable, start, stop, step));
+    return new Genflow(_slice(iterable, start, stop, step));
   },
   zip(...iterables) {
-    return new Wrapper(_zip(...iterables));
+    return new Genflow(_zip(...iterables));
   },
   map(iterable, func) {
-    return new Wrapper(_map(iterable, func));
+    return new Genflow(_map(iterable, func));
   },
   window(iterable, n = 2) {
-    return new Wrapper(_window(iterable, n));
+    return new Genflow(_window(iterable, n));
   },
   flatten(iterable) {
-    return new Wrapper(_flatten(iterable));
+    return new Genflow(_flatten(iterable));
   },
   filter(iterable, predicate = (item) => Boolean(item)) {
-    return new Wrapper(_filter(iterable, predicate));
+    return new Genflow(_filter(iterable, predicate));
   },
   filterMap(iterable, predicate) {
-    return new Wrapper(_filterMap(iterable, predicate));
+    return new Genflow(_filterMap(iterable, predicate));
   },
 };
 

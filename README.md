@@ -67,22 +67,22 @@ For a complete list of available functions and their usage, refer to the [API Do
 
 Genflow provides a collection of utility functions and a wrapper class for iterables. Here's a list of available functions:
 
-- `count(start?: number, step?: number): Wrapper<number>`
-- `range(start?: number, stop?: number, step?: number): Wrapper<number>`
-- `accumulate<T>(iterable: Iterable<T>, operator: Operator<T>, initial?: T | undefined): Wrapper<T>`
-- `enumerate<T>(iterable: Iterable<T>): Wrapper<[number, T]>`
-- `take<T>(iterable: Iterable<T>, number: number): Wrapper<T>`
-- `cycle<T>(iterable: Iterable<T>, times?: number): Wrapper<T | undefined>`
-- `tee<T>(iterable: Iterable<T>, splits?: number): Wrapper<Wrapper<T>>`
-- `drop<T>(iterable: Iterable<T>, items?: number): Wrapper<T>`
-- `step<T>(iterable: Iterable<T>, step?: number): Wrapper<T>`
-- `slice<T>(iterable: Iterable<T>, start?: number, stop?: number | null, step?: number): Wrapper<T>`
-- `zip<T>(...iterables: Iterable<T>[]): Wrapper<(void | T)[]>`
-- `map<T, R>(iterable: Iterable<T>, func: (item: T) => R): Wrapper<R>`
-- `window<T>(iterable: Iterable<T>, n?: number): Wrapper<(void | Generator<never, Iterable<T>, unknown>)[]>`
-- `flatten<T>(iterable: Iterable<T>): Wrapper<T>`
-- `filter<T>(iterable: Iterable<T>, predicate?: (item: T) => boolean): Wrapper<T>`
-- `filterMap<T, R>(iterable: Iterable<T>, predicate: (item: T) => R | null | undefined): Wrapper<R>`
+- `count(start?: number, step?: number): Genflow<number>`
+- `range(start?: number, stop?: number, step?: number): Genflow<number>`
+- `accumulate<T>(iterable: Iterable<T>, operator: Operator<T>, initial?: T | undefined): Genflow<T>`
+- `enumerate<T>(iterable: Iterable<T>): Genflow<[number, T]>`
+- `take<T>(iterable: Iterable<T>, number: number): Genflow<T>`
+- `cycle<T>(iterable: Iterable<T>, times?: number): Genflow<T | undefined>`
+- `tee<T>(iterable: Iterable<T>, splits?: number): Genflow<Genflow<T>>`
+- `drop<T>(iterable: Iterable<T>, items?: number): Genflow<T>`
+- `step<T>(iterable: Iterable<T>, step?: number): Genflow<T>`
+- `slice<T>(iterable: Iterable<T>, start?: number, stop?: number | null, step?: number): Genflow<T>`
+- `zip<T>(...iterables: Iterable<T>[]): Genflow<(void | T)[]>`
+- `map<T, R>(iterable: Iterable<T>, func: (item: T) => R): Genflow<R>`
+- `window<T>(iterable: Iterable<T>, n?: number): Genflow<(void | Generator<never, Iterable<T>, unknown>)[]>`
+- `flatten<T>(iterable: Iterable<T>): Genflow<T>`
+- `filter<T>(iterable: Iterable<T>, predicate?: (item: T) => boolean): Genflow<T>`
+- `filterMap<T, R>(iterable: Iterable<T>, predicate: (item: T) => R | null | undefined): Genflow<R>`
 
 ## Contributing
 
