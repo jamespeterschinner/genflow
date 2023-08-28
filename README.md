@@ -1,10 +1,10 @@
-# Genflow - Utility Library for Iterables in TypeScript
+# Genflow - Utility Library for generators
 
-Inspired by python itertools, Genflow is a TypeScript module that provides a collection of utility functions for working with iterables. It offers a wide range of operations that can be performed on iterables, allowing you to process and manipulate data in various ways.
+Inspired by python itertools, Genflow provides a collection of utility functions for chaining generator functions. It offers a wide range of operations, allowing you to process and manipulate data in various ways.
 
 ## Installation
 
-To use Genflow in your TypeScript project, you can install it via npm:
+To use Genflow in your project, you can install it via npm:
 
 ```bash
 npm install genflow
@@ -12,13 +12,13 @@ npm install genflow
 
 ## Usage
 
-Import the `genflow` module in your TypeScript code:
+Import the `genflow` module code:
 
 ```ts
 import genflow from "genflow";
 ```
 
-Genflow provides a set of utility functions and a wrapper class that enhances the functionality of iterables. Here are some examples of how to use the utility functions:
+Here are some examples of how to use genflow:
 
 ### Example 1: Creating an Iterable of Numbers
 
