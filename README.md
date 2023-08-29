@@ -94,4 +94,4 @@ Genflow is released under the [MIT License](https://opensource.org/licenses/MIT)
 
 ---
 
-This module was developed by [James Schinner](https://github.com/your/profile). If you find it helpful, consider giving it a star on GitHub!
+This module was developed by [James Schinner](https://github.com/jamespeterschinner). If you find it helpful, consider giving it a star on GitHub!
