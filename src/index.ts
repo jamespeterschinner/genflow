@@ -1,7 +1,7 @@
 type Operator<T> = (a: T, b: T) => T;
 
-function* _identity<T>(arraylikeOrIterable: Iterable<T>) {
-  for (const item of arraylikeOrIterable) {
+function* _identity<T>(iterable: Iterable<T>) {
+  for (const item of iterable) {
     yield item;
   }
 }
@@ -138,7 +138,7 @@ function* _window<T>(iterable: Iterable<T>, n: number = 2) {
     const { done, value } = iterator.next();
     window.push(value);
     if (done) {
-      return; // Exiting the generator if the iterable is exhausted
+      return;
     }
   }
 
@@ -147,12 +147,12 @@ function* _window<T>(iterable: Iterable<T>, n: number = 2) {
   while (true) {
     const { done, value } = iterator.next();
     if (done) {
-      break; // Exit the loop when the iterable is exhausted
+      break;
     }
 
     window.shift();
     window.push(value);
-    yield [...window]; // Yield a shallow copy of the window
+    yield [...window];
   }
 }
 
